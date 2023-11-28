@@ -67,9 +67,8 @@ void led_green() {
 void led_yellow() {
 	HAL_GPIO_TogglePin(YELLOW_GPIO_Port, YELLOW_Pin);
 }
-void print_timestamp(void) {
-    uint32_t timestamp = 0;
-    printf("Timestamp: %u ms\n", timestamp);
+void led_aqua() {
+	HAL_GPIO_WritePin(aqua_GPIO_Port, aqua_Pin, SET);
 }
 /* USER CODE END 0 */
 
@@ -77,8 +76,6 @@ void print_timestamp(void) {
   * @brief  The application entry point.
   * @retval int
   */
-
-
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -110,11 +107,10 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  SCH_Add_Task(print_timestamp, 0, 10);
-  SCH_Add_Task(led_red, 150, 200);
-  SCH_Add_Task(led_green, 500, 100);
-  SCH_Add_Task(led_yellow, 100, 250);
-  SCH_Add_Task(print_timestamp, 0, 500);
+  SCH_Add_Task(led_red, 100, 200);
+  SCH_Add_Task(led_green, 300, 150);
+  SCH_Add_Task(led_aqua, 200, 0);
+  SCH_Add_Task(led_yellow, 100, 200);
   while (1)
   {
 	  SCH_Dispatch_Tasks();
@@ -221,10 +217,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, RED_Pin|GREEN_Pin|YELLOW_Pin|AQUAL_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, RED_Pin|GREEN_Pin|YELLOW_Pin|aqua_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : RED_Pin GREEN_Pin YELLOW_Pin AQUAL_Pin */
-  GPIO_InitStruct.Pin = RED_Pin|GREEN_Pin|YELLOW_Pin|AQUAL_Pin;
+  /*Configure GPIO pins : RED_Pin GREEN_Pin YELLOW_Pin aqua_Pin */
+  GPIO_InitStruct.Pin = RED_Pin|GREEN_Pin|YELLOW_Pin|aqua_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

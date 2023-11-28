@@ -63,8 +63,8 @@ void Error_Handler(void);
 #define GREEN_GPIO_Port GPIOA
 #define YELLOW_Pin GPIO_PIN_5
 #define YELLOW_GPIO_Port GPIOA
-#define AQUAL_Pin GPIO_PIN_6
-#define AQUAL_GPIO_Port GPIOA
+#define aqua_Pin GPIO_PIN_6
+#define aqua_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 
