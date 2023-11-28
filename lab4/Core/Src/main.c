@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "scheduler.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -56,13 +56,29 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void led_red() {
+	HAL_GPIO_TogglePin(RED_GPIO_Port, RED_Pin);
+}
 
+void led_green() {
+	HAL_GPIO_TogglePin(GREEN_GPIO_Port, GREEN_Pin);
+}
+
+void led_yellow() {
+	HAL_GPIO_TogglePin(YELLOW_GPIO_Port, YELLOW_Pin);
+}
+
+void led_aqua() {
+	HAL_GPIO_TogglePin(AQUAL_GPIO_Port, AQUAL_Pin);
+}
 /* USER CODE END 0 */
 
 /**
   * @brief  The application entry point.
   * @retval int
   */
+
+
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -89,13 +105,19 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_Base_Start_IT (&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  SCH_Add_Task(led_red, 200, 100);
+  SCH_Add_Task(led_green, 50, 300);
+  SCH_Add_Task(led_aqua, 50, 0);
+  SCH_Add_Task(led_yellow, 100, 500);
+
   while (1)
   {
+	  SCH_Dispatch_Tasks();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -199,20 +221,23 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, RED_Pin|GREEN_Pin|YELLOW_Pin|AQUAL_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : LED1_Pin */
-  GPIO_InitStruct.Pin = LED1_Pin;
+  /*Configure GPIO pins : RED_Pin GREEN_Pin YELLOW_Pin AQUAL_Pin */
+  GPIO_InitStruct.Pin = RED_Pin|GREEN_Pin|YELLOW_Pin|AQUAL_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LED1_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim ) {
+	SCH_Update();
+}
 
 /* USER CODE END 4 */
 
