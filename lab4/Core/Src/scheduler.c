@@ -45,7 +45,7 @@ void SCH_Update(void){
 	}
 }
 void SCH_Delete_Task(uint32_t taskID) {
-	if(SCH_tasks_G[taskID].pTask == 0) return;
+	if (taskID >= SCH_MAX_TASKS || SCH_tasks_G[taskID].pTask == 0) return;
 	 for (uint32_t i = taskID; i < SCH_MAX_TASKS - 1; ++i) {
 	        SCH_tasks_G[i] = SCH_tasks_G[i + 1];
 	    }
