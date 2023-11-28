@@ -1,7 +1,7 @@
 ../Core/Src/main.c:59:6:led_red	1
 ../Core/Src/main.c:63:6:led_green	1
 ../Core/Src/main.c:67:6:led_yellow	1
-../Core/Src/main.c:71:6:led_aqua	1
+../Core/Src/main.c:70:6:print_timestamp	1
 ../Core/Src/main.c:82:5:main	1
 ../Core/Src/main.c:132:6:SystemClock_Config	3
 ../Core/Src/main.c:169:13:MX_TIM2_Init	4

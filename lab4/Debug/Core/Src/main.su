@@ -1,7 +1,7 @@
 ../Core/Src/main.c:59:6:led_red	8	static
 ../Core/Src/main.c:63:6:led_green	8	static
 ../Core/Src/main.c:67:6:led_yellow	8	static
-../Core/Src/main.c:71:6:led_aqua	8	static
+../Core/Src/main.c:70:6:print_timestamp	16	static
 ../Core/Src/main.c:82:5:main	8	static
 ../Core/Src/main.c:132:6:SystemClock_Config	72	static
 ../Core/Src/main.c:169:13:MX_TIM2_Init	32	static

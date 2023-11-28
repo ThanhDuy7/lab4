@@ -67,9 +67,9 @@ void led_green() {
 void led_yellow() {
 	HAL_GPIO_TogglePin(YELLOW_GPIO_Port, YELLOW_Pin);
 }
-
-void led_aqua() {
-	HAL_GPIO_TogglePin(AQUAL_GPIO_Port, AQUAL_Pin);
+void print_timestamp(void) {
+    uint32_t timestamp = 0;
+    printf("Timestamp: %u ms\n", timestamp);
 }
 /* USER CODE END 0 */
 
@@ -110,11 +110,11 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  SCH_Add_Task(print_timestamp, 0, 10);
   SCH_Add_Task(led_red, 150, 200);
   SCH_Add_Task(led_green, 500, 100);
-  SCH_Add_Task(led_aqua, 250, 200);
   SCH_Add_Task(led_yellow, 100, 250);
-
+  SCH_Add_Task(print_timestamp, 0, 500);
   while (1)
   {
 	  SCH_Dispatch_Tasks();
